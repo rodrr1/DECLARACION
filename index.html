@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti 💖</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top, #2b1055, #1a1a2e);
+    overflow: hidden;
+}
+
+/* Contenedor */
+.container {
+    text-align: center;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    padding: 50px 30px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    width: 420px;
+    max-width: 90%;
+    animation: fadeIn 1s ease;
+}
+
+/* Texto */
+h1 {
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+p {
+    color: #ccc;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Botones */
+.buttons {
+    position: relative;
+    height: 80px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#si {
+    background: linear-gradient(45deg, #ff4b7d, #ff758c);
+    color: white;
+    box-shadow: 0 8px 25px rgba(255, 75, 125, 0.5);
+}
+
+#si:hover {
+    transform: scale(1.1);
+}
+
+#no {
+    position: absolute;
+    left: 60%;
+    top: 10px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    backdrop-filter: blur(5px);
+    transition: all 0.4s ease;
+}
+
+/* Fade out */
+.fade-out {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(40px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* Corazones */
+.heart {
+    position: absolute;
+    color: #ff4b7d;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    from {
+        transform: translateY(100vh);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="contenido">
+    <h1>¿Quieres estar conmigo? 💖</h1>
+    <p>
+        No te prometo perfección...<br>
+        pero sí momentos reales,<br>
+        risas sinceras y alguien que siempre va a estar para ti ✨
+    </p>
+
+    <div class="buttons">
+        <button id="si" onclick="aceptar()">Sí 💕</button>
+        <button id="no" onclick="moverNo()">No 😢</button>
+    </div>
+</div>
+
+<script>
+
+let intentos = 0;
+
+function moverNo() {
+    let boton = document.getElementById("no");
+
+    intentos++;
+
+    if (intentos < 4) {
+        let maxX = window.innerWidth - boton.offsetWidth;
+        let maxY = window.innerHeight - boton.offsetHeight;
+
+        let x = Math.random() * maxX;
+        let y = Math.random() * maxY;
+
+        boton.style.left = x + "px";
+        boton.style.top = y + "px";
+    } else {
+        // DESAPARECE
+        boton.classList.add("fade-out");
+
+        setTimeout(() => {
+            boton.style.display = "none";
+        }, 400);
+    }
+}
+
+// ACEPTAR
+function aceptar() {
+    document.getElementById("contenido").innerHTML = `
+        <h1>💖 Te amo 💖</h1>
+        <p style="font-size:18px; line-height:1.7;">
+            Este no es solo un momento...<br><br>
+            es el inicio de algo que quiero construir contigo ✨<br><br>
+            Te amo, y quiero que este sea<br>
+            el comienzo de nuestra historia,<br>
+            una donde haya risas, apoyo,<br>
+            y mil momentos que valgan la pena 💕<br><br>
+            Gracias por decir que sí... 💖
+        </p>
+    `;
+    lanzarCorazones();
+}
+
+// CORAZONES
+function lanzarCorazones() {
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+    }, 250);
+}
+
+</script>
+
+</body>
+</html>
